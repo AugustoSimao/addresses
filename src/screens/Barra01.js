@@ -7,14 +7,14 @@ import 'moment/locale/pt-br'
 
 import BarraImg from '../../assets/imgs/Barra.jpg'
 
-import Address from '../components/Address.js'
-import AddAdress from './addAddress'
+import Address from '../components/Address'
+import AddAddress from './addAddress'
 
 export default class Barra01 extends Component{
 
     state = {
         showDoneAddresses: true,
-        showAddAddress: true,
+        showAddAddress: false,
         visibleAddresses: [],
         addresses: [{
             id: Math.random(),
@@ -64,10 +64,14 @@ export default class Barra01 extends Component{
     render () {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
+            
             <SafeAreaView className="flex-1">
-                <AddAdress isVisible={this.showAddAddress} onCancel={() => this.setState({showAddAddress: false}) }/>
+                
+                <AddAddress isVisible={this.state.showAddAddress}
+                    onCancel={() => this.setState({showAddAddress: false})}/>
+                
                 <View className="flex">
-                    
+                
                     <View className="h-1/3">
                         
                         <ImageBackground className="h-full" source={BarraImg}>
@@ -95,6 +99,18 @@ export default class Barra01 extends Component{
                     
 
                 </View>
+
+                <TouchableOpacity
+                    className="absolute left-4 bottom-11 flex-row"
+                    activeOpacity={0.7}
+                    onPress={() => this.setState({ showAddAddress: true })}>
+                    <View className="bg-blue-500 h-6 w-6 rounded-full justify-center items-center">
+                        <Icon name="plus" color={'#fff'}/>
+                    </View>
+                    <Text className="pl-3 font-extrabold text-blue-500 text-sm">Nueva dirección</Text>
+                </TouchableOpacity>
+
+
             </SafeAreaView>
         )
     }
