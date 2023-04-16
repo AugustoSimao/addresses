@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-import { View, Text, ImageBackground, SafeAreaView, ScrollView, FlatList, TouchableOpacity } from 'react-native'
+import { View,
+    Text,
+    ImageBackground,
+    SafeAreaView,
+    ScrollView,
+    FlatList,
+    TouchableOpacity,
+    Platform,
+    Alert
+} from 'react-native'
 import Icon from '@expo/vector-icons/FontAwesome'
 
 import moment from 'moment'
@@ -61,6 +70,22 @@ export default class Barra01 extends Component{
         this.setState({ addresses }, this.filterAddresses)
     }
 
+    addAddress = newAddress => {
+        if(!newAddress.desc || !newAddress.desc.trim()) {
+            Alert.alert('Datos no válidos', 'Dirección no informada!')
+            return 
+        }
+
+        const addresses = [...this.state.addresses]
+        addresses.push({
+            id: Math.random(),
+            desc: newAddress.desc,
+            estimateAT: newAddress.date,
+            doneAt: null
+        })
+        this.setState({ addresses, showAddAddress: false}, this.filterAddresses)
+    }
+
     render () {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
@@ -68,7 +93,8 @@ export default class Barra01 extends Component{
             <SafeAreaView className="flex-1">
                 
                 <AddAddress isVisible={this.state.showAddAddress}
-                    onCancel={() => this.setState({showAddAddress: false})}/>
+                    onCancel={() => this.setState({showAddAddress: false})}
+                    onSave={this.addAddress}/>
                 
                 <View className="flex">
                 

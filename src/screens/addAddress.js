@@ -7,13 +7,52 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native'
+import Icon from '@expo/vector-icons/Ionicons'
 
-const initialState = { desc: '' }
+import moment from 'moment'
+
+import DateTimePicker from '@react-native-community/datetimepicker'
+
+const initialState = { desc: '', date: new Date() }
 
 export default class AddAdress extends Component {
     state = {
         ...initialState
       };
+
+      save = () => {
+        const newAddress = {
+            desc: this.state.desc,
+            date: this.state.date
+        }
+
+        this.props.onSave && this.props.onSave(newAddress)
+        this.setState({ ...initialState })
+    }
+    
+      getDatePicker = () => {
+        let datePicker = <DateTimePicker value={this.state.date}
+            onChange={(_, date) => this.setState({ date, showDatePicker: false })}
+            mode='date' />
+        
+        const dateString = moment(this.state.date).format('dddd, D [de] MMMM [de] YYYY')
+
+        if(Platform.OS === 'android') {
+            datePicker = (
+                <View>
+                    <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>
+                                           
+                        <Text className="text-base text-blue-500">
+                            {dateString}
+                        </Text>
+                    </TouchableOpacity>
+                    {this.state.showDatePicker && datePicker}
+                </View>
+            )
+        }
+        
+        return datePicker
+    }
 
     render() {
         
@@ -29,7 +68,7 @@ export default class AddAdress extends Component {
                             <Text className="text-center text-blue-500 text-base pb-3">Cancelar</Text>
                         </TouchableOpacity>
                         <Text className="text-center text-base font-bold pb-3">Nueva dirección</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.save}>
                             <Text className="text-center text-blue-500 text-base pb-3">Salvar</Text>
                         </TouchableOpacity>
                         
@@ -42,6 +81,21 @@ export default class AddAdress extends Component {
                         <TextInput className="py-4 text-base"
                             placeholder='Observaciones...'></TextInput>
                     </View>
+
+                                        
+                    <View className="bg-white rounded-xl px-4 mt-4">
+                        <Text className="pt-3 pb-4 font-bold">Fecha de inclusión</Text>
+                        <View className="flex-row">
+                            <View className="h-7 w-7 bg-red-500 rounded-md justify-center items-center mr-4">
+                                <Icon name="ios-calendar-outline" size={16} color={'#fff'}/>
+                            </View>
+                            <Text className=" pb-4 text-base text-blue-500">
+                                {this.getDatePicker()}
+                            </Text>
+                        </View>
+                    </View>
+                    
+
                 </View>
                 <TouchableWithoutFeedback
                     onPress={this.props.onCancel}>
