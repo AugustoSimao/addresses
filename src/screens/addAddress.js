@@ -62,7 +62,7 @@ export default class AddAdress extends Component {
                 visible={this.props.isVisible}
                 onRequestClose={this.props.onCancel}
                 animationType='slide'>
-                <View className="mt-14 bg-neutral-100 py-6 px-4 rounded-xl">
+                <View className="flex-1 mt-14 bg-neutral-100 py-6 px-4 rounded-xl">
                     <View className="flex-row justify-between">
                         <TouchableOpacity onPress={this.props.onCancel}>
                             <Text className="text-center text-blue-500 text-base pb-3">Cancelar</Text>
@@ -97,10 +97,7 @@ export default class AddAdress extends Component {
                     
 
                 </View>
-                <TouchableWithoutFeedback
-                    onPress={this.props.onCancel}>
-                    <View className="flex-1 bg-black opacity-70"></View>
-                </TouchableWithoutFeedback>
+                
             </Modal>
         )
     }
