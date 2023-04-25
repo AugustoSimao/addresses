@@ -27,12 +27,86 @@ export default class Barra01 extends Component{
         visibleAddresses: [],
         addresses: [{
             id: Math.random(),
-            desc: 'Rod. Jornalista Manoel de Menezes, 2580',
+            desc: 'Rua 1',
+            obs: 'casa 4',
+            territory: 'Barra 01',
             estimateAT: new Date(),
             doneAt: new Date(),
         }, {
             id: Math.random(),
-            desc: 'R. Laurindo José de Souza, 218',
+            desc: 'Rua 2',
+            obs: 'fin de la calle',
+            territory: 'Barra 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 3',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 4',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 5',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 6',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 7',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 8',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 9',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 10',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 11',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
+            estimateAT: new Date(),
+            doneAt: null,
+        }, {
+            id: Math.random(),
+            desc: 'Rua 12',
+            obs: 'casa 2',
+            territory: 'Lagoa 01',
             estimateAT: new Date(),
             doneAt: null,
         },]
@@ -80,6 +154,8 @@ export default class Barra01 extends Component{
         addresses.push({
             id: Math.random(),
             desc: newAddress.desc,
+            obs: newAddress.obs,
+            territory: newAddress.territory,
             estimateAT: newAddress.date,
             doneAt: null
         })
@@ -96,9 +172,9 @@ export default class Barra01 extends Component{
                     onCancel={() => this.setState({showAddAddress: false})}
                     onSave={this.addAddress}/>
                 
-                <View className="flex">
+                <View style={{flex: 1}}>
                 
-                    <View className="h-1/3">
+                    <View style={{flex: 3}}>
                         
                         <ImageBackground className="h-full" source={BarraImg}>
                             <View className="flex-1 justify-end">
@@ -109,7 +185,7 @@ export default class Barra01 extends Component{
                     </View>
                     
                     
-                    <View className="h-2/3">
+                    <View style={{flex:6}}>
 
                         <View className="py-2 px-4 items-end">
                             <TouchableOpacity className="ml-5 content-end" onPress={this.toggleFilter}>
@@ -122,19 +198,21 @@ export default class Barra01 extends Component{
                         renderItem={({item}) => <Address {...item} toggleAddress={this.toggleAddress} />} />
                         
                     </View>
+
+                    <TouchableOpacity
+                        className="pl-4 pt-2 pb-5 flex-row bg-white"
+                        activeOpacity={0.7}
+                        onPress={() => this.setState({ showAddAddress: true })}>
+                        <View className="bg-blue-500 h-6 w-6 rounded-full justify-center items-center">
+                            <Icon name="plus" color={'#fff'}/>
+                        </View>
+                        <Text className="pl-3 font-extrabold text-blue-500 text-sm">Nueva dirección</Text>
+                    </TouchableOpacity>
                     
 
                 </View>
 
-                <TouchableOpacity
-                    className="absolute left-4 bottom-11 flex-row"
-                    activeOpacity={0.7}
-                    onPress={() => this.setState({ showAddAddress: true })}>
-                    <View className="bg-blue-500 h-6 w-6 rounded-full justify-center items-center">
-                        <Icon name="plus" color={'#fff'}/>
-                    </View>
-                    <Text className="pl-3 font-extrabold text-blue-500 text-sm">Nueva dirección</Text>
-                </TouchableOpacity>
+
 
 
             </SafeAreaView>

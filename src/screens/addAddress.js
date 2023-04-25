@@ -13,7 +13,7 @@ import moment from 'moment'
 
 import DateTimePicker from '@react-native-community/datetimepicker'
 
-const initialState = { desc: '', date: new Date() }
+const initialState = { desc: '', obs: '', territory: '', date: new Date() }
 
 export default class AddAdress extends Component {
     state = {
@@ -23,7 +23,9 @@ export default class AddAdress extends Component {
       save = () => {
         const newAddress = {
             desc: this.state.desc,
-            date: this.state.date
+            obs: this.state.obs,
+            territory: this.state.territory,
+            date: this.state.date,
         }
 
         this.props.onSave && this.props.onSave(newAddress)
@@ -74,12 +76,18 @@ export default class AddAdress extends Component {
                         
                     </View>
                     <View className="bg-white rounded-xl px-4">
-                        <TextInput className=" py-4 text-base border-b border-neutral-300"
+                        <TextInput className="py-4 text-base border-b border-neutral-300"
                             placeholder='Dirección...'
                             onChangeText={desc => this.setState({ desc })}
                             value={this.state.desc}></TextInput>
+                        <TextInput className="py-4 text-base border-b border-neutral-300"
+                            placeholder='Observaciones...'
+                            onChangeText={obs => this.setState({ obs })}
+                            value={this.state.obs}></TextInput>
                         <TextInput className="py-4 text-base"
-                            placeholder='Observaciones...'></TextInput>
+                            placeholder='Territorio...'
+                            onChangeText={territory => this.setState({ territory })}
+                            value={this.state.territory}></TextInput>
                     </View>
 
                                         
