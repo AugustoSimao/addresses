@@ -19,7 +19,7 @@ import BarraImg from '../../assets/imgs/Barra.jpg'
 import Address from '../components/Address'
 import AddAddress from './addAddress'
 
-export default class Barra01 extends Component{
+export default class addressList extends Component{
 
     state = {
         showDoneAddresses: true,
@@ -162,6 +162,11 @@ export default class Barra01 extends Component{
         this.setState({ addresses, showAddAddress: false}, this.filterAddresses)
     }
 
+    deleteAddress = id => {
+        const addresses = this.state.addresses.filter(address => address.id !== id)
+        this.setState({ addresses }, this.filterAddresses)
+    }
+
     render () {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return (
@@ -178,7 +183,7 @@ export default class Barra01 extends Component{
                         
                         <ImageBackground className="h-full" source={BarraImg}>
                             <View className="flex-1 justify-end">
-                                <Text className="text-blue-100 font-extrabold text-5xl ml-5 mb-5">Barra 01</Text>
+                                <Text className="text-blue-100 font-extrabold text-5xl ml-5 mb-5">Territorio 01</Text>
                             </View>
                         </ImageBackground>
                         
@@ -195,7 +200,7 @@ export default class Barra01 extends Component{
 
                         <FlatList data={this.state.visibleAddresses}
                         keyExtractor={item => `${item.id}`}
-                        renderItem={({item}) => <Address {...item} toggleAddress={this.toggleAddress} />} />
+                        renderItem={({item}) => <Address {...item} toggleAddress={this.toggleAddress} onDelete={this.deleteAddress} />} />
                         
                     </View>
 
