@@ -1,12 +1,10 @@
 import React from 'react'
 import {
-    Animated,
     View,
     Text,
     TouchableWithoutFeedback,
     TouchableOpacity,
     StyleSheet,
-    I18nManager
 } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import Icon from '@expo/vector-icons/FontAwesome'

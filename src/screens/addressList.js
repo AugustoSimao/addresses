@@ -9,6 +9,8 @@ import { View,
     Platform,
     Alert
 } from 'react-native'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Icon from '@expo/vector-icons/FontAwesome'
 
 import moment from 'moment'
@@ -25,95 +27,13 @@ export default class addressList extends Component{
         showDoneAddresses: true,
         showAddAddress: false,
         visibleAddresses: [],
-        addresses: [{
-            id: Math.random(),
-            desc: 'Rua 1',
-            obs: 'casa 4',
-            territory: 'Barra 01',
-            estimateAT: new Date(),
-            doneAt: new Date(),
-        }, {
-            id: Math.random(),
-            desc: 'Rua 2',
-            obs: 'fin de la calle',
-            territory: 'Barra 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 3',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 4',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 5',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 6',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 7',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 8',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 9',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 10',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 11',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        }, {
-            id: Math.random(),
-            desc: 'Rua 12',
-            obs: 'casa 2',
-            territory: 'Lagoa 01',
-            estimateAT: new Date(),
-            doneAt: null,
-        },]
+        addresses: []
     }
 
-    componentDidMount = () => {
-        this.filterAddresses()
+    componentDidMount = async () => {
+        const stateString = await AsyncStorage.getItem('addressesState')
+        const state = JSON.parse(stateString) || initialState
+        this.setState(state, this.filterAddresses)
     }
 
     toggleFilter = () => {
@@ -130,7 +50,7 @@ export default class addressList extends Component{
         }
 
         this.setState({ visibleAddresses })
-        
+        AsyncStorage.setItem('addressesState', JSON.stringify(this.state))
     }
 
     toggleAddress = addressId => {
